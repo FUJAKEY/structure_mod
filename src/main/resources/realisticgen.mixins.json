@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "com.example.realisticgen.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+    "StructurePoolAccessor"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
