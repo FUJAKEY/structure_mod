@@ -1,24 +1,16 @@
 {
-  "feature": "realisticgen:realistic_oak",
+  "feature": "realisticgen:skyscraper",
   "placement": [
     {
-      "type": "minecraft:count",
-      "count": 1
-    },
-    {
       "type": "minecraft:rarity_filter",
-      "chance": 2
+      "chance": 200
     },
     {
       "type": "minecraft:in_square"
     },
     {
-      "type": "minecraft:surface_water_depth_filter",
-      "max_water_depth": 0
-    },
-    {
       "type": "minecraft:heightmap",
-      "heightmap": "OCEAN_FLOOR"
+      "heightmap": "WORLD_SURFACE_WG"
     },
     {
         "type": "minecraft:block_predicate_filter",
@@ -27,8 +19,8 @@
           "blocks": [
             "minecraft:grass_block",
             "minecraft:dirt",
-            "minecraft:podzol",
-            "minecraft:coarse_dirt"
+            "minecraft:stone",
+            "minecraft:podzol"
           ],
           "offset": [0, -1, 0]
         }
