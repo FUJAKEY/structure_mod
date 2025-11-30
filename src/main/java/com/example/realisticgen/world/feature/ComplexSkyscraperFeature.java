@@ -24,12 +24,15 @@ public class ComplexSkyscraperFeature extends Feature<DefaultFeatureConfig> {
         BlockPos origin = context.getOrigin();
         Random random = context.getRandom();
 
-        // Ensure we are on solid ground
+        // Optimized Ground Check: Only check 1 block down initially.
+        // If it's AIR, we might be floating.
+        // Jigsaw usually places 'origin' at the bottom of the piece bounding box.
+        // If we want to ensure we hit ground, we can shift down slightly, but not loop infinitely.
+
         BlockPos groundPos = origin.down();
-        // Simple check, can be improved
         if (world.isAir(groundPos)) {
-             // Try to find ground down
-             for(int i=0; i<10; i++) {
+             // Try to find ground down max 5 blocks to avoid floating
+             for(int i=0; i<5; i++) {
                  if(!world.isAir(groundPos.down(i))) {
                      origin = origin.down(i);
                      break;
@@ -39,7 +42,8 @@ public class ComplexSkyscraperFeature extends Feature<DefaultFeatureConfig> {
 
         int width = 13;
         int depth = 13;
-        int floors = 10 + random.nextInt(10);
+        // Limit height to avoid generation lag or going out of bounds
+        int floors = 8 + random.nextInt(8); // 8-16 floors (40-80 blocks approx)
         int floorHeight = 5;
 
         boolean isOffice = random.nextBoolean();
@@ -49,6 +53,9 @@ public class ComplexSkyscraperFeature extends Feature<DefaultFeatureConfig> {
 
         for (int f = 0; f < floors; f++) {
             int yBase = origin.getY() + f * floorHeight;
+
+            // Safety check for height
+            if (yBase > world.getTopY() - 10) break;
 
             // Generate Floor Structure
             for (int x = 0; x < width; x++) {
@@ -76,6 +83,8 @@ public class ComplexSkyscraperFeature extends Feature<DefaultFeatureConfig> {
                                  world.setBlockState(pos, Blocks.SEA_LANTERN.getDefaultState(), 3);
                              }
                         } else {
+                            // Only set air if it's not already air to save processing?
+                            // No, structure needs to clear space.
                             world.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
                         }
                     }

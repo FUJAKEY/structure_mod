@@ -22,10 +22,10 @@ public class VillageAdditions {
             Registry<StructurePool> poolRegistry = server.getRegistryManager().get(RegistryKeys.TEMPLATE_POOL);
             Registry<PlacedFeature> placedFeatureRegistry = server.getRegistryManager().get(RegistryKeys.PLACED_FEATURE);
 
-            // Get RegistryEntry for the feature
+            // Get RegistryEntry for the feature (using the new VILLAGE specific one)
             RegistryEntry<PlacedFeature> skyscraperFeatureEntry = placedFeatureRegistry.getEntry(
                 placedFeatureRegistry.getKey(
-                    placedFeatureRegistry.get(Identifier.of(RealisticGenMod.MOD_ID, "skyscraper_placed"))
+                    placedFeatureRegistry.get(Identifier.of(RealisticGenMod.MOD_ID, "skyscraper_village_placed"))
                 ).get()
             ).get();
 
@@ -47,7 +47,7 @@ public class VillageAdditions {
         StructurePoolAccessor accessor = (StructurePoolAccessor) pool;
         List<Pair<StructurePoolElement, Integer>> elementCounts = new ArrayList<>(accessor.getElementCounts());
 
-        // Add with high weight (e.g., 2)
+        // Add with moderate weight (e.g., 2)
         elementCounts.add(Pair.of(element, 2));
         accessor.getElementCounts().clear();
         accessor.getElementCounts().addAll(elementCounts);

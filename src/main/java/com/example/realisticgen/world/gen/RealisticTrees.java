@@ -21,21 +21,19 @@ public class RealisticTrees {
     public static final RegistryKey<PlacedFeature> REALISTIC_OAK_PLACED_KEY = RegistryKey.of(RegistryKeys.PLACED_FEATURE, Identifier.of(RealisticGenMod.MOD_ID, "realistic_oak_placed"));
 
     public static final Feature<DefaultFeatureConfig> COMPLEX_SKYSCRAPER_FEATURE = new ComplexSkyscraperFeature(DefaultFeatureConfig.CODEC);
-    public static final RegistryKey<PlacedFeature> SKYSCRAPER_PLACED_KEY = RegistryKey.of(RegistryKeys.PLACED_FEATURE, Identifier.of(RealisticGenMod.MOD_ID, "skyscraper_placed"));
+
+    // Key for the Village version (Empty placement)
+    public static final RegistryKey<PlacedFeature> SKYSCRAPER_VILLAGE_PLACED_KEY = RegistryKey.of(RegistryKeys.PLACED_FEATURE, Identifier.of(RealisticGenMod.MOD_ID, "skyscraper_village_placed"));
 
 
     public static void register() {
          // Register Feature
          Registry.register(Registries.FEATURE, Identifier.of(RealisticGenMod.MOD_ID, "complex_skyscraper"), COMPLEX_SKYSCRAPER_FEATURE);
 
-         // Add features to biomes
+         // Add Realistic Oak to biomes
          BiomeModifications.addFeature(BiomeSelectors.foundInOverworld(), GenerationStep.Feature.VEGETAL_DECORATION, REALISTIC_OAK_PLACED_KEY);
 
-         // Add Skyscrapers - Using SURFACE_STRUCTURES so it generates like a building
-         // But to place IN villages, we need Structure Pool modification, not this.
-         // However, I will keep this global placement for "Random Skyscrapers" as user mentioned "behind the village" earlier,
-         // but they want it IN village.
-         // I will DISABLE this global placement if I successfully implement the village integration.
-         // For now, I'll keep it as a backup or reduce rarity significantly.
+         // Removed Global Skyscraper Placement to prevent infinite loading/cascading lag.
+         // Skyscrapers will now ONLY generate via Village Structures.
     }
 }
