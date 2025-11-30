@@ -15,5 +15,8 @@ public class RealisticGenMod implements ModInitializer {
 
         // Register features, biomes, etc.
         RealisticWorldGen.init();
+
+        // Register Village modifications
+        VillageAdditions.register();
 	}
 }
